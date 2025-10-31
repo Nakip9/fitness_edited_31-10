@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
+from payments.models import PaymentRequest
+
 from .models import MembershipPlan
 
 User = get_user_model()
@@ -27,7 +29,13 @@ class MembershipViewsTests(TestCase):
         self.client.login(username="testuser", password="pass12345")
         response = self.client.post(
             reverse("memberships:subscribe", args=[self.plan.slug]),
-            {"auto_renew": True},
+            {"plan": self.plan.pk, "phone_number": "+1 555 0100"},
         )
         self.assertEqual(response.status_code, 302)
-        self.assertTrue(self.user.membership_set.filter(plan=self.plan).exists())
+        self.assertEqual(response.url, reverse("memberships:plan_detail", args=[self.plan.slug]))
+        self.assertTrue(
+            PaymentRequest.objects.filter(plan=self.plan, phone_number="+1 555 0100").exists()
+        )
+        self.assertTrue(
+            self.user.membership_set.filter(plan=self.plan, status="pending").exists()
+        )

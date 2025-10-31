@@ -3,7 +3,7 @@
 {% block title %}{{ plan.name }} | {{ SITE_NAME }}{% endblock title %}
 
 {% block content %}
-<section class="py-5">
+<section class="content-section">
   <div class="container">
     <div class="row g-5 align-items-start">
       <div class="col-lg-7">
@@ -22,14 +22,14 @@
         </ul>
       </div>
       <div class="col-lg-5">
-        <div class="card membership-card p-4">
-          <h3 class="fw-semibold mb-3">Become a member</h3>
+        <div class="membership-card p-4 h-100">
+          <h3 class="fw-semibold mb-3">Reserve your spot at {{ SITE_NAME }}</h3>
           {% if user.is_authenticated %}
-            <p class="mb-3">Select continue to create your membership and complete checkout.</p>
-            <a class="btn btn-primary w-100" href="{% url 'memberships:subscribe' plan.slug %}">Continue to Checkout</a>
+            <p class="mb-3">Choose this plan, share your phone number, and our customer service team will call within two hours to complete payment.</p>
+            <a class="btn btn-gradient w-100" href="{% url 'memberships:subscribe' plan.slug %}">Request a Call to Join</a>
           {% else %}
-            <p class="mb-3">Create an account to unlock this plan and start training with us.</p>
-            <a class="btn btn-primary w-100" href="{% url 'accounts:register' %}">Join to Continue</a>
+            <p class="mb-3">Create an account to choose a membership and receive a quick call back from our specialists.</p>
+            <a class="btn btn-gradient w-100" href="{% url 'accounts:register' %}">Join to Continue</a>
           {% endif %}
         </div>
       </div>

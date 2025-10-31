@@ -102,5 +102,5 @@ LOGIN_URL = "accounts:login"
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY", "")
 
-SITE_NAME = os.getenv("SITE_NAME", "Gymfit Club")
-SITE_TAGLINE = os.getenv("SITE_TAGLINE", "Premium Fitness Experience")
+SITE_NAME = os.getenv("SITE_NAME", "JafriFit")
+SITE_TAGLINE = os.getenv("SITE_TAGLINE", "Fuel Your Energy. Elevate Your Strength.")

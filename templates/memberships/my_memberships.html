@@ -3,10 +3,10 @@
 {% block title %}My Memberships | {{ SITE_NAME }}{% endblock title %}
 
 {% block content %}
-<section class="py-5">
+<section class="content-section">
   <div class="container">
     <h1 class="section-heading mb-4">My memberships</h1>
-    <div class="card card-dark p-4">
+    <div class="membership-card p-4 p-lg-5">
       {% if memberships %}
         <div class="table-responsive">
           <table class="table table-dark-soft align-middle">
@@ -33,7 +33,7 @@
           </table>
         </div>
       {% else %}
-        <p class="mb-0">You do not have an active membership yet. <a href="{% url 'memberships:plan_list' %}">Browse plans</a>.</p>
+        <p class="mb-0 lead text-muted">You do not have an active membership yet. <a href="{% url 'memberships:plan_list' %}">Browse plans</a>.</p>
       {% endif %}
     </div>
   </div>

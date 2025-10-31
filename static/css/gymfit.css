@@ -1,159 +1,400 @@
 body {
-  font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
-  color: #96b5d4;
-  background-color: #0c0c0c;
+  font-family: "Manrope", "Poppins", "Helvetica Neue", Arial, sans-serif;
+  color: #0f172a;
+  background-color: #f3f6fb;
 }
 
 main {
-  background-color: #0c0c0c;
+  background-color: #f3f6fb;
 }
 
-.gymfit-header .navbar {
-  background: linear-gradient(90deg, #141e30, #243b55);
+:root {
+  --color-surface: #ffffff;
+  --color-surface-muted: #f0f4ff;
+  --color-text-muted: #5b6b8d;
+  --color-primary: #0f8bff;
+  --color-primary-dark: #0663d3;
+  --color-accent: #1dd1a1;
+  --color-warm: #ff8551;
+  --gradient-brand: linear-gradient(115deg, rgba(15, 139, 255, 1) 0%, rgba(29, 209, 161, 1) 55%, rgba(255, 133, 81, 0.92) 100%);
+}
+
+.nav-glass {
+  background: rgba(12, 25, 61, 0.8);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .navbar-brand {
   letter-spacing: 0.08em;
+  font-size: 1.15rem;
 }
 
 .navbar .nav-link {
-  color: rgba(255, 255, 255, 0.8);
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
 }
 
 .navbar .nav-link:hover,
 .navbar .nav-link:focus,
 .navbar .nav-link.active {
-  color: #fff;
+  color: #ffffff;
+}
+
+.btn-gradient {
+  background: var(--gradient-brand);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 12px 24px rgba(15, 139, 255, 0.25);
+}
+
+.btn-gradient:hover,
+.btn-gradient:focus {
+  color: #ffffff;
+  background: linear-gradient(115deg, rgba(15, 139, 255, 0.92) 0%, rgba(29, 209, 161, 0.9) 60%, rgba(255, 133, 81, 0.85) 100%);
+}
+
+.btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #ffffff;
 }
 
 .hero-section {
-  background: linear-gradient(135deg, rgba(20, 30, 48, 0.85), rgba(36, 59, 85, 0.95));
-  padding: 160px 0 140px;
-  color: #fff;
   position: relative;
-  overflow: hidden;
+  padding: 6rem 0 4rem;
+  color: #0f172a;
 }
 
-.hero-section::after {
+.hero-surface {
+  background: var(--gradient-brand);
+  border-radius: 36px;
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+.hero-surface::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(12, 12, 12, 0.55);
+  background: linear-gradient(135deg, rgba(5, 12, 31, 0.1), rgba(5, 12, 31, 0.45));
+  pointer-events: none;
 }
 
-.hero-section .container {
+.hero-copy {
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
 
-.hero-cta {
-  background: rgba(255, 255, 255, 0.08);
-  padding: 1.5rem 2rem;
-  border-radius: 1rem;
-  backdrop-filter: blur(4px);
+.hero-badge {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 0.4rem 1.2rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 4vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.hero-text {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.86);
+  max-width: 36rem;
+}
+
+.hero-media {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-media img {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 28px;
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.25);
+  border: 6px solid rgba(255, 255, 255, 0.2);
+}
+
+.content-section {
+  padding: 5rem 0;
+}
+
+.section-title {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.85rem;
+  color: #0f8bff;
+  font-weight: 700;
+}
+
+.section-heading {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.section-heading span {
+  color: var(--color-warm);
+}
+
+.lead {
+  color: var(--color-text-muted);
+}
+
+.card-modern {
+  background: var(--color-surface);
+  border-radius: 24px;
+  border: 1px solid rgba(15, 23, 42, 0.05);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.card-modern:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 26px 60px rgba(15, 23, 42, 0.14);
 }
 
 .membership-card {
-  border-radius: 18px;
-  border: none;
-  background: linear-gradient(145deg, #ffffff, #f7f7f7);
-  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+  background: var(--color-surface);
+  border-radius: 24px;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .membership-card.featured {
-  transform: translateY(-10px);
-  background: linear-gradient(145deg, #ff7e5f, #feb47b);
-  color: #fff;
+  border: none;
+  background: linear-gradient(160deg, rgba(15, 139, 255, 0.95), rgba(29, 209, 161, 0.95));
+  color: #ffffff;
+}
+
+.membership-card.featured .btn-gradient {
+  box-shadow: none;
 }
 
 .membership-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  transform: translateY(-12px);
+  box-shadow: 0 26px 60px rgba(15, 23, 42, 0.14);
+}
+
+.membership-card .badge {
+  background: rgba(15, 139, 255, 0.12);
+  color: #0f8bff;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+}
+
+.membership-card.featured .badge {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+.membership-benefits {
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 .membership-benefits li {
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.65rem;
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.membership-card.featured .membership-benefits li {
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .membership-benefits li i {
-  color: #ff7e5f;
+  color: var(--color-accent);
+}
+
+.membership-card.featured .membership-benefits li i {
+  color: #ffffff;
+}
+
+.badge-soft {
+  background: rgba(15, 139, 255, 0.14);
+  color: #0f8bff;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.card-dark {
+  background: var(--color-surface);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: 22px;
+  color: #0f172a;
+}
+
+.card-dark .badge-soft {
+  background: rgba(255, 133, 81, 0.1);
+  color: #ff8551;
+}
+
+.btn-primary {
+  background: #0f8bff;
+  border: none;
+  box-shadow: 0 18px 28px rgba(15, 139, 255, 0.25);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: #0663d3;
+}
+
+.btn-outline-light:hover,
+.btn-outline-light:focus {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.form-control,
+.form-select {
+  border-radius: 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background-color: #ffffff;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: rgba(15, 139, 255, 0.55);
+  box-shadow: 0 0 0 0.2rem rgba(15, 139, 255, 0.15);
+}
+
+.plan-choice-card {
+  position: relative;
+  border-radius: 20px;
+  padding: 1.75rem;
+  background: #ffffff;
+  border: 2px solid transparent;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  cursor: pointer;
+}
+
+.plan-choice-card.active {
+  border-color: rgba(15, 139, 255, 0.8);
+  box-shadow: 0 20px 38px rgba(15, 139, 255, 0.18);
+  transform: translateY(-6px);
+}
+
+.plan-choice-card input[type="radio"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.plan-choice-card .price-tag {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.plan-choice-card .plan-duration {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.confirmation-card {
+  background: linear-gradient(130deg, rgba(15, 139, 255, 0.12), rgba(29, 209, 161, 0.12));
+  border-radius: 22px;
+  padding: 2rem;
+  border: 1px solid rgba(15, 139, 255, 0.2);
 }
 
 .gymfit-footer {
-  background: #050505;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: #0a1327;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .gymfit-footer .social-links a {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
   margin-left: 0.75rem;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .gymfit-footer .social-links a:hover {
-  background: #ff7e5f;
-  border-color: #ff7e5f;
-}
-
-.section-title {
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-size: 0.9rem;
-  color: #ff7e5f;
-}
-
-.section-heading {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #fff;
-}
-
-.card-dark {
-  background: #111;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1rem;
-  color: rgba(255, 255, 255, 0.85);
+  background: var(--gradient-brand);
+  border-color: transparent;
+  transform: translateY(-4px);
 }
 
 .table-dark-soft {
-  background: rgba(12, 12, 12, 0.9);
-  color: rgba(255, 255, 255, 0.8);
+  background: #ffffff;
+  color: #0f172a;
+  border-radius: 20px;
+  border: 1px solid rgba(15, 23, 42, 0.06);
 }
 
-a.btn-primary,
-button.btn-primary {
-  background: linear-gradient(120deg, #ff7e5f, #feb47b);
+.alert {
+  border-radius: 1rem;
   border: none;
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
 }
 
-.btn-outline-light {
-  border-color: rgba(255, 255, 255, 0.5);
-  color: rgba(255, 255, 255, 0.8);
+.schedule-card {
+  border-radius: 24px;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  padding: 2rem;
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.form-control,
-.form-select {
-  border-radius: 0.75rem;
-  padding: 0.75rem 1rem;
+.schedule-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 48px rgba(15, 23, 42, 0.12);
 }
 
-.badge-soft {
-  background: rgba(255, 126, 95, 0.15);
-  color: #ff7e5f;
-  border-radius: 2rem;
-  padding: 0.25rem 0.75rem;
+.text-gradient {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@media (max-width: 991.98px) {
+  .hero-surface {
+    padding: 2.4rem 2rem;
+  }
+
+  .hero-media {
+    margin-top: 2.5rem;
+    text-align: center;
+  }
+
+  .hero-media img {
+    max-width: 360px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hero-title {
+    font-size: 2.25rem;
+  }
+
+  .plan-choice-card {
+    padding: 1.4rem;
+  }
 }

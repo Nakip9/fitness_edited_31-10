@@ -3,7 +3,7 @@
 {% block title %}Memberships | {{ SITE_NAME }}{% endblock title %}
 
 {% block content %}
-<section class="py-5 bg-dark text-white">
+<section class="content-section">
   <div class="container">
     <div class="text-center mb-5">
       <p class="section-title">Memberships</p>
@@ -13,25 +13,25 @@
     <div class="row g-4">
       {% for plan in plans %}
         <div class="col-md-4">
-          <div class="card membership-card {% if plan.featured %}featured{% endif %} h-100">
+          <div class="membership-card {% if plan.featured %}featured{% endif %} h-100">
             <div class="card-body p-4">
-              <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="fw-bold mb-0">{{ plan.name }}</h4>
-                <span class="badge bg-dark text-white">{{ plan.duration_days }} Days</span>
+                <span class="badge">{{ plan.duration_days }} Days</span>
               </div>
-              <p class="display-6 fw-bold my-4">${{ plan.price }}</p>
-              <p>{{ plan.description }}</p>
-              <ul class="list-unstyled membership-benefits mt-4">
+              <p class="display-6 fw-bold my-3">${{ plan.price }}</p>
+              <p>{{ plan.description|default:"Premium access to our facilities and signature classes." }}</p>
+              <ul class="membership-benefits mt-4">
                 {% for benefit in plan.benefits.all %}
-                  <li><i class="fa-solid fa-check"></i> {{ benefit.text }}</li>
+                  <li><i class="fa-solid fa-bolt"></i> {{ benefit.text }}</li>
                 {% empty %}
-                  <li><i class="fa-solid fa-check"></i> Unlimited gym access</li>
-                  <li><i class="fa-solid fa-check"></i> Complimentary fitness assessment</li>
+                  <li><i class="fa-solid fa-bolt"></i> Unlimited gym access</li>
+                  <li><i class="fa-solid fa-bolt"></i> Complimentary fitness assessment</li>
                 {% endfor %}
               </ul>
             </div>
             <div class="card-footer border-0 bg-transparent p-4 pt-0">
-              <a class="btn btn-primary w-100" href="{% url 'memberships:plan_detail' plan.slug %}">View Plan</a>
+              <a class="btn btn-gradient w-100" href="{% url 'memberships:plan_detail' plan.slug %}">View Plan</a>
             </div>
           </div>
         </div>
