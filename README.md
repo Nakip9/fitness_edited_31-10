@@ -31,8 +31,8 @@ This project integrates the [Gymfit Bootstrap template](https://github.com/theme
    DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
    STRIPE_SECRET_KEY=sk_test_your_key
    STRIPE_PUBLISHABLE_KEY=pk_test_your_key
-   SITE_NAME=Gymfit Club
-   SITE_TAGLINE=Premium Fitness Experience
+   SITE_NAME=JafriFit
+   SITE_TAGLINE=Fuel Your Energy. Elevate Your Strength.
    ```
 
    When Stripe keys are not provided the app activates memberships automatically, making local testing straightforward.

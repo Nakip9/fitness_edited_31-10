@@ -3,22 +3,22 @@
 {% block title %}Contact | {{ SITE_NAME }}{% endblock title %}
 
 {% block content %}
-<section class="py-5">
+<section class="content-section">
   <div class="container">
     <div class="row g-5 align-items-start">
       <div class="col-lg-6">
         <p class="section-title">Contact</p>
         <h2 class="section-heading mb-4">Visit our flagship studio</h2>
         <p class="lead">We're located in the heart of the city with easy access via public transit and on-site parking.</p>
-        <div class="card card-dark p-4">
+        <div class="card-modern p-4">
           <h5 class="fw-semibold">Reach us</h5>
           <p class="mb-2"><i class="fa-solid fa-location-dot me-2"></i>123 Fitness Avenue, Suite 500, Metropolis</p>
           <p class="mb-2"><i class="fa-solid fa-phone me-2"></i>(555) 123-4567</p>
-          <p class="mb-0"><i class="fa-solid fa-envelope me-2"></i>hello@gymfit.example</p>
+          <p class="mb-0"><i class="fa-solid fa-envelope me-2"></i>hello@jafrifit.example</p>
         </div>
       </div>
       <div class="col-lg-6">
-        <div class="card card-dark p-4">
+        <div class="card-modern p-4">
           <h5 class="fw-semibold mb-3">Send us a message</h5>
           <!-- Update the form to work with Django -->
           <form method="POST">
@@ -35,7 +35,7 @@
               <label class="form-label" for="contactMessage">Message</label>
               {{ form.message }} <!-- Django form field -->
             </div>
-            <button class="btn btn-primary" type="submit">Send Message</button>
+            <button class="btn btn-gradient" type="submit">Send Message</button>
           </form>
         </div>
       </div>

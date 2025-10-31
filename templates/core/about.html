@@ -3,7 +3,7 @@
 {% block title %}About | {{ SITE_NAME }}{% endblock title %}
 
 {% block content %}
-<section class="py-5 bg-dark text-white">
+<section class="content-section">
   <div class="container">
     <div class="row g-5 align-items-center">
       <div class="col-lg-6">
@@ -11,16 +11,16 @@
         <h1 class="section-heading mb-4">Where passion meets performance</h1>
         <p class="lead">We built {{ SITE_NAME }} for athletes, creators, and anyone who wants to feel stronger every day. Our elite coaching staff and curated programming empower members to break limits and redefine what fitness means.</p>
         <p>From sunrise bootcamps to restorative evening yoga, our experiences are designed around your goals. We blend immersive sound, lighting, and energy to deliver classes that feel like events.</p>
-        <a class="btn btn-primary mt-3" href="{% url 'memberships:plan_list' %}">Join the Community</a>
+        <a class="btn btn-gradient mt-3" href="{% url 'memberships:plan_list' %}">Join the Community</a>
       </div>
       <div class="col-lg-6">
-        <div class="card card-dark p-4">
+        <div class="card-modern p-4">
           <h3 class="fw-semibold mb-3">Why members choose us</h3>
           <ul class="list-unstyled membership-benefits">
-            <li><i class="fa-solid fa-check"></i> Award-winning trainers and wellness experts</li>
-            <li><i class="fa-solid fa-check"></i> Boutique studio experience with premium equipment</li>
-            <li><i class="fa-solid fa-check"></i> Flexible class schedule across multiple disciplines</li>
-            <li><i class="fa-solid fa-check"></i> Nutrition coaching, recovery lounges, and member events</li>
+            <li><i class="fa-solid fa-bolt"></i> Award-winning trainers and wellness experts</li>
+            <li><i class="fa-solid fa-bolt"></i> Boutique studio experience with premium equipment</li>
+            <li><i class="fa-solid fa-bolt"></i> Flexible class schedule across multiple disciplines</li>
+            <li><i class="fa-solid fa-bolt"></i> Nutrition coaching, recovery lounges, and member events</li>
           </ul>
         </div>
       </div>

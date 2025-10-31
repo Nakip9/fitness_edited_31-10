@@ -3,22 +3,57 @@
 {% block title %}Subscribe | {{ plan.name }}{% endblock title %}
 
 {% block content %}
-<section class="py-5 bg-dark text-white">
+<section class="content-section">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-lg-6">
-        <div class="card membership-card p-4">
-          <h2 class="fw-semibold mb-3">Confirm your membership</h2>
-          <p class="mb-4">You're moments away from joining the <strong>{{ plan.name }}</strong> plan at <strong>${{ plan.price }}</strong>.</p>
-          <form method="post">
+      <div class="col-xl-8">
+        <div class="membership-card p-4 p-lg-5">
+          <h2 class="fw-bold mb-3">Let's finalize your membership</h2>
+          <p class="lead text-muted mb-4">Choose the JafriFit plan that energizes your goals and share the best phone number to reach you. We'll call within two hours to complete your payment.</p>
+          <form method="post" novalidate>
             {% csrf_token %}
-            <div class="form-check form-switch mb-4">
-              {{ form.auto_renew }}
-              <label class="form-check-label" for="{{ form.auto_renew.id_for_label }}">Enable auto renewal</label>
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger mb-4">
+                {{ form.non_field_errors|join:" " }}
+              </div>
+            {% endif %}
+            {% if not plans %}
+              <div class="alert alert-info mb-4">Membership plans are currently being curated. Please check back soon.</div>
+            {% endif %}
+            <div class="row g-4 mb-3">
+              {% for option in plans %}
+                <div class="col-md-6">
+                  {% with option_id=option.pk|stringformat:"s" selected_id=selected_plan|stringformat:"s" %}
+                    <label class="plan-choice-card {% if option_id == selected_id %}active{% endif %}" for="id_plan_{{ option.pk }}">
+                      <input
+                        type="radio"
+                        name="{{ form.plan.name }}"
+                        value="{{ option.pk }}"
+                        id="id_plan_{{ option.pk }}"
+                        {% if option_id == selected_id %}checked{% endif %}
+                      />
+                      <span class="plan-duration">{{ option.duration_days }} day access</span>
+                      <h4 class="fw-bold mt-2 mb-1">{{ option.name }}</h4>
+                      <div class="price-tag mb-3">${{ option.price }}</div>
+                      <p class="mb-0 text-muted small">{{ option.description|default:"High-energy access to our signature classes and training zones." }}</p>
+                    </label>
+                  {% endwith %}
+                </div>
+              {% endfor %}
             </div>
-            <button class="btn btn-primary w-100" type="submit">Continue to Payment</button>
+            {% if form.plan.errors %}
+              <div class="alert alert-danger py-2 mb-4">{{ form.plan.errors|striptags }}</div>
+            {% endif %}
+            <div class="mb-4">
+              <label class="form-label fw-semibold" for="{{ form.phone_number.id_for_label }}">{{ form.phone_number.label }}</label>
+              {{ form.phone_number }}
+              {% if form.phone_number.errors %}
+                <div class="text-danger small mt-2">{{ form.phone_number.errors|striptags }}</div>
+              {% endif %}
+            </div>
+            <button class="btn btn-gradient btn-lg w-100" type="submit">Submit phone number</button>
           </form>
-          <p class="text-muted small mt-3 mb-0">Secure payments powered by Stripe. You won't be charged until the next step.</p>
+          <div class="mt-4 small text-muted">A JafriFit specialist will confirm your membership and finalize payment over the phone.</div>
         </div>
       </div>
     </div>
