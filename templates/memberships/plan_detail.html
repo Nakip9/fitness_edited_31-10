@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}{{ plan.name }} | {{ SITE_NAME }}{% endblock title %}
+
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="row g-5 align-items-start">
+      <div class="col-lg-7">
+        <p class="section-title">Membership Plan</p>
+        <h1 class="section-heading">{{ plan.name }}</h1>
+        <p class="lead">${{ plan.price }} &middot; {{ plan.duration_days }} day access</p>
+        <p>{{ plan.description|default:"Our signature membership with unlimited classes, 24/7 gym access, and monthly wellness coaching." }}</p>
+        <ul class="list-unstyled membership-benefits mt-4">
+          {% for benefit in plan.benefits.all %}
+            <li><i class="fa-solid fa-check"></i> {{ benefit.text }}</li>
+          {% empty %}
+            <li><i class="fa-solid fa-check"></i> Unlimited group classes</li>
+            <li><i class="fa-solid fa-check"></i> Complimentary guest passes</li>
+            <li><i class="fa-solid fa-check"></i> Access to recovery lounge</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="col-lg-5">
+        <div class="card membership-card p-4">
+          <h3 class="fw-semibold mb-3">Become a member</h3>
+          {% if user.is_authenticated %}
+            <p class="mb-3">Select continue to create your membership and complete checkout.</p>
+            <a class="btn btn-primary w-100" href="{% url 'memberships:subscribe' plan.slug %}">Continue to Checkout</a>
+          {% else %}
+            <p class="mb-3">Create an account to unlock this plan and start training with us.</p>
+            <a class="btn btn-primary w-100" href="{% url 'accounts:register' %}">Join to Continue</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

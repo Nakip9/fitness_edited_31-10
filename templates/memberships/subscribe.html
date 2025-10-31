@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Subscribe | {{ plan.name }}{% endblock title %}
+
+{% block content %}
+<section class="py-5 bg-dark text-white">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card membership-card p-4">
+          <h2 class="fw-semibold mb-3">Confirm your membership</h2>
+          <p class="mb-4">You're moments away from joining the <strong>{{ plan.name }}</strong> plan at <strong>${{ plan.price }}</strong>.</p>
+          <form method="post">
+            {% csrf_token %}
+            <div class="form-check form-switch mb-4">
+              {{ form.auto_renew }}
+              <label class="form-check-label" for="{{ form.auto_renew.id_for_label }}">Enable auto renewal</label>
+            </div>
+            <button class="btn btn-primary w-100" type="submit">Continue to Payment</button>
+          </form>
+          <p class="text-muted small mt-3 mb-0">Secure payments powered by Stripe. You won't be charged until the next step.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

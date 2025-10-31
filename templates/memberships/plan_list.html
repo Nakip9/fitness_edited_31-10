@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Memberships | {{ SITE_NAME }}{% endblock title %}
+
+{% block content %}
+<section class="py-5 bg-dark text-white">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="section-title">Memberships</p>
+      <h1 class="section-heading">Choose your perfect plan</h1>
+      <p class="lead">Flexible memberships tailored for every fitness journey. Upgrade, pause, or cancel anytime.</p>
+    </div>
+    <div class="row g-4">
+      {% for plan in plans %}
+        <div class="col-md-4">
+          <div class="card membership-card {% if plan.featured %}featured{% endif %} h-100">
+            <div class="card-body p-4">
+              <div class="d-flex justify-content-between align-items-center">
+                <h4 class="fw-bold mb-0">{{ plan.name }}</h4>
+                <span class="badge bg-dark text-white">{{ plan.duration_days }} Days</span>
+              </div>
+              <p class="display-6 fw-bold my-4">${{ plan.price }}</p>
+              <p>{{ plan.description }}</p>
+              <ul class="list-unstyled membership-benefits mt-4">
+                {% for benefit in plan.benefits.all %}
+                  <li><i class="fa-solid fa-check"></i> {{ benefit.text }}</li>
+                {% empty %}
+                  <li><i class="fa-solid fa-check"></i> Unlimited gym access</li>
+                  <li><i class="fa-solid fa-check"></i> Complimentary fitness assessment</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="card-footer border-0 bg-transparent p-4 pt-0">
+              <a class="btn btn-primary w-100" href="{% url 'memberships:plan_detail' plan.slug %}">View Plan</a>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="col-12">
+          <div class="alert alert-info">We are curating membership options. Check back soon!</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock content %}

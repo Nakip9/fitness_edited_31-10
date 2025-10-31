@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}My Memberships | {{ SITE_NAME }}{% endblock title %}
+
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h1 class="section-heading mb-4">My memberships</h1>
+    <div class="card card-dark p-4">
+      {% if memberships %}
+        <div class="table-responsive">
+          <table class="table table-dark-soft align-middle">
+            <thead>
+              <tr>
+                <th scope="col">Plan</th>
+                <th scope="col">Status</th>
+                <th scope="col">Start</th>
+                <th scope="col">End</th>
+                <th scope="col">Auto renew</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for membership in memberships %}
+                <tr>
+                  <td>{{ membership.plan.name }}</td>
+                  <td><span class="badge bg-success text-uppercase">{{ membership.status }}</span></td>
+                  <td>{{ membership.start_date|date:"M d, Y" }}</td>
+                  <td>{{ membership.end_date|date:"M d, Y" }}</td>
+                  <td>{{ membership.auto_renew|yesno:"Yes,No" }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="mb-0">You do not have an active membership yet. <a href="{% url 'memberships:plan_list' %}">Browse plans</a>.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock content %}

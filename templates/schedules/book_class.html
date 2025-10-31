@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Book {{ gym_class.title }} | {{ SITE_NAME }}{% endblock title %}
+
+{% block content %}
+<section class="py-5 bg-dark text-white">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card membership-card p-4">
+          <h2 class="fw-semibold mb-3">Reserve your spot</h2>
+          <p class="mb-4">Confirm your booking for <strong>{{ gym_class.title }}</strong> on {{ gym_class.start_time|date:"l, F d" }} at {{ gym_class.start_time|date:"g:i A" }}.</p>
+          <form method="post">
+            {% csrf_token %}
+            <button class="btn btn-primary w-100" type="submit">Confirm Booking</button>
+          </form>
+          <p class="small text-muted mt-3 mb-0">Remaining spots: {{ gym_class.spots_remaining }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

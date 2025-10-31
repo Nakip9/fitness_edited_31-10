@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}{{ gym_class.title }} | {{ SITE_NAME }}{% endblock title %}
+
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-7">
+        <span class="badge badge-soft mb-3">{{ gym_class.category.name }}</span>
+        <h1 class="section-heading">{{ gym_class.title }}</h1>
+        <p class="lead">Coached by {{ gym_class.instructor }}</p>
+        <p>{{ gym_class.description }}</p>
+        <div class="card card-dark p-3 mt-4">
+          <div class="d-flex align-items-center justify-content-between">
+            <div>
+              <p class="mb-1 text-uppercase text-muted">Schedule</p>
+              <p class="fw-semibold mb-0">{{ gym_class.start_time|date:"l, F d" }} &middot; {{ gym_class.start_time|date:"g:i A" }} - {{ gym_class.end_time|date:"g:i A" }}</p>
+            </div>
+            <div class="text-end">
+              <p class="mb-1 text-uppercase text-muted">Capacity</p>
+              <p class="fw-semibold mb-0">{{ gym_class.spots_remaining }} spots remaining</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="card membership-card p-4">
+          <h3 class="fw-semibold mb-3">Reserve your spot</h3>
+          {% if user.is_authenticated %}
+            {% if booking %}
+              <p class="mb-3">You have already booked this class. Status: <strong>{{ booking.get_status_display }}</strong>.</p>
+              <a class="btn btn-outline-light" href="{% url 'schedules:schedule' %}">Back to schedule</a>
+            {% else %}
+              <form method="post" action="{% url 'schedules:book_class' gym_class.slug %}">
+                {% csrf_token %}
+                <button class="btn btn-primary w-100" type="submit">Book Now</button>
+              </form>
+            {% endif %}
+          {% else %}
+            <p class="mb-3">Sign in or create an account to secure your spot.</p>
+            <a class="btn btn-primary w-100" href="{%url 'accounts:login'%}">Log in to Book</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,159 @@
+body {
+  font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
+  color: #96b5d4;
+  background-color: #0c0c0c;
+}
+
+main {
+  background-color: #0c0c0c;
+}
+
+.gymfit-header .navbar {
+  background: linear-gradient(90deg, #141e30, #243b55);
+}
+
+.navbar-brand {
+  letter-spacing: 0.08em;
+}
+
+.navbar .nav-link {
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus,
+.navbar .nav-link.active {
+  color: #fff;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, rgba(20, 30, 48, 0.85), rgba(36, 59, 85, 0.95));
+  padding: 160px 0 140px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 12, 12, 0.55);
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-cta {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(4px);
+}
+
+.membership-card {
+  border-radius: 18px;
+  border: none;
+  background: linear-gradient(145deg, #ffffff, #f7f7f7);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.membership-card.featured {
+  transform: translateY(-10px);
+  background: linear-gradient(145deg, #ff7e5f, #feb47b);
+  color: #fff;
+}
+
+.membership-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+}
+
+.membership-benefits li {
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.membership-benefits li i {
+  color: #ff7e5f;
+}
+
+.gymfit-footer {
+  background: #050505;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gymfit-footer .social-links a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  margin-left: 0.75rem;
+  transition: background 0.3s ease;
+}
+
+.gymfit-footer .social-links a:hover {
+  background: #ff7e5f;
+  border-color: #ff7e5f;
+}
+
+.section-title {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.9rem;
+  color: #ff7e5f;
+}
+
+.section-heading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.card-dark {
+  background: #111;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.table-dark-soft {
+  background: rgba(12, 12, 12, 0.9);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+a.btn-primary,
+button.btn-primary {
+  background: linear-gradient(120deg, #ff7e5f, #feb47b);
+  border: none;
+}
+
+.btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.form-control,
+.form-select {
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+}
+
+.badge-soft {
+  background: rgba(255, 126, 95, 0.15);
+  color: #ff7e5f;
+  border-radius: 2rem;
+  padding: 0.25rem 0.75rem;
+}

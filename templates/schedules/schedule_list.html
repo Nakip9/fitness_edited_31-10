@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Class Schedule | {{ SITE_NAME }}{% endblock title %}
+
+{% block content %}
+<section class="py-5 bg-dark text-white">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="section-title">Class Schedule</p>
+      <h1 class="section-heading">Find your next session</h1>
+      <p class="lead">Cardio, strength, mobility, and recovery experiences designed by world-class coaches.</p>
+    </div>
+    <div class="row g-4">
+      {% for gym_class in classes %}
+        <div class="col-md-4">
+          <div class="card card-dark h-100 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="badge badge-soft">{{ gym_class.category.name }}</span>
+              <span class="small text-muted">{{ gym_class.spots_remaining }} spots left</span>
+            </div>
+            <h4 class="fw-semibold">{{ gym_class.title }}</h4>
+            <p class="mb-1">Instructor: {{ gym_class.instructor }}</p>
+            <p class="small text-uppercase text-muted">{{ gym_class.start_time|date:"M d" }} &middot; {{ gym_class.start_time|date:"g:i A" }} &ndash; {{ gym_class.end_time|date:"g:i A" }}</p>
+            <p class="mb-4">{{ gym_class.description|truncatewords:25 }}</p>
+            <a class="btn btn-outline-light btn-sm" href="{%url 'schedules:class_detail' gym_class.slug %}">View Details</a>
+          </div>
+        </div>
+      {% empty %}
+        <div class="col-12">
+          <div class="alert alert-info">New classes launching soon. Stay tuned!</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock content %}
