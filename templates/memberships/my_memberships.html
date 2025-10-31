@@ -1,45 +1,722 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}My Memberships | {{ SITE_NAME }}{% endblock title %}
 
 {% block content %}
-<section class="content-section">
+<section class="memberships-section">
   <div class="container">
-    <div class="photo-grid mb-4">
-      <div class="photo-frame" aria-hidden="true"></div>
-      <div class="photo-frame photo-frame--accent" aria-hidden="true"></div>
+    <!-- Header Section -->
+    <div class="page-header">
+      <h1>My Memberships</h1>
+      <p class="page-subtitle">Manage your fitness plans and track your membership details</p>
     </div>
-    <h1 class="section-heading mb-4">My memberships</h1>
-    <div class="membership-card p-4 p-lg-5">
-      {% if memberships %}
-        <div class="table-responsive">
-          <table class="table table-dark-soft align-middle">
-            <thead>
-              <tr>
-                <th scope="col">Plan</th>
-                <th scope="col">Status</th>
-                <th scope="col">Start</th>
-                <th scope="col">End</th>
-                <th scope="col">Auto renew</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for membership in memberships %}
-                <tr>
-                  <td>{{ membership.plan.name }}</td>
-                  <td><span class="badge bg-success text-uppercase">{{ membership.status }}</span></td>
-                  <td>{{ membership.start_date|date:"M d, Y" }}</td>
-                  <td>{{ membership.end_date|date:"M d, Y" }}</td>
-                  <td>{{ membership.auto_renew|yesno:"Yes,No" }}</td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+
+    {% if memberships %}
+      <!-- Active Memberships -->
+      <div class="memberships-container">
+        {% for membership in memberships %}
+        <div class="membership-card">
+          <div class="membership-header">
+            <div class="plan-info">
+              <h2>{{ membership.plan.name }}</h2>
+              <p class="plan-description">Premium access to all facilities and classes</p>
+            </div>
+            <div class="status-badge {% if membership.status == 'active' %}active{% else %}inactive{% endif %}">
+              {{ membership.status|title }}
+            </div>
+          </div>
+
+          <div class="membership-details">
+            <div class="detail-grid">
+              <div class="detail-item">
+                <div class="detail-icon">
+                  <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="detail-content">
+                  <label>Start Date</label>
+                  <span class="detail-value">{{ membership.start_date|date:"F d, Y" }}</span>
+                </div>
+              </div>
+
+              <div class="detail-item">
+                <div class="detail-icon">
+                  <i class="fas fa-calendar-times"></i>
+                </div>
+                <div class="detail-content">
+                  <label>End Date</label>
+                  <span class="detail-value">{{ membership.end_date|date:"F d, Y" }}</span>
+                </div>
+              </div>
+
+              <div class="detail-item">
+                <div class="detail-icon">
+                  <i class="fas fa-sync-alt"></i>
+                </div>
+                <div class="detail-content">
+                  <label>Auto Renew</label>
+                  <span class="detail-value {% if membership.auto_renew %}renewing{% else %}not-renewing{% endif %}">
+                    {{ membership.auto_renew|yesno:"Yes,No" }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="detail-item">
+                <div class="detail-icon">
+                  <i class="fas fa-clock"></i>
+                </div>
+                <div class="detail-content">
+                  <label>Days Remaining</label>
+                  <span class="detail-value days-remaining">
+                    {{ membership.end_date|timeuntil:membership.start_date }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="membership-actions">
+            <button class="action-btn primary">
+              <i class="fas fa-eye"></i>
+              View Details
+            </button>
+            {% comment %} {% if membership.auto_renew %}
+            <button class="action-btn secondary">
+              <i class="fas fa-ban"></i>
+              Cancel Auto-Renew
+            </button>
+            {% else %}
+            <button class="action-btn secondary">
+              <i class="fas fa-redo"></i>
+              Enable Auto-Renew
+            </button>
+            {% endif %} {% endcomment %}
+            {% comment %} <button class="action-btn outline">
+              <i class="fas fa-download"></i>
+              Download Invoice
+            </button> {% endcomment %}
+          </div>
         </div>
-      {% else %}
-        <p class="mb-0 lead text-muted">You do not have an active membership yet. <a href="{% url 'memberships:plan_list' %}">Browse plans</a>.</p>
-      {% endif %}
-    </div>
+        {% endfor %}
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="membership-stats">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-dumbbell"></i>
+          </div>
+          <div class="stat-content">
+            <h3>Active Plan</h3>
+            <p class="stat-value">{{ memberships.0.plan.name }}</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="stat-content">
+            <h3>Days Remaining</h3>
+            <p class="stat-value">{{ memberships.0.end_date|timeuntil:memberships.0.start_date }}</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-calendar"></i>
+          </div>
+          <div class="stat-content">
+            <h3>Renewal Date</h3>
+            <p class="stat-value">{{ memberships.0.end_date|date:"M d, Y" }}</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-sync"></i>
+          </div>
+          <div class="stat-content">
+            <h3>Auto Renew</h3>
+            <p class="stat-value {% if memberships.0.auto_renew %}renewing{% else %}not-renewing{% endif %}">
+              {{ memberships.0.auto_renew|yesno:"Enabled,Disabled" }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upgrade Section -->
+      <div class="upgrade-section">
+        <div class="upgrade-content">
+          <h2>Ready to Level Up?</h2>
+          <p>Upgrade your membership to unlock premium features and exclusive benefits</p>
+          <div class="upgrade-actions">
+            <a href="{% url 'memberships:plan_list' %}" class="upgrade-btn primary">
+              <i class="fas fa-star"></i>
+              Explore Premium Plans
+            </a>
+            <a href="{% url 'core:contact' %}" class="upgrade-btn secondary">
+              <i class="fas fa-question-circle"></i>
+              Get Upgrade Advice
+            </a>
+          </div>
+        </div>
+      </div>
+
+    {% else %}
+      <!-- No Memberships State -->
+      <div class="no-memberships">
+        <div class="empty-state">
+          <div class="empty-icon">
+            <i class="fas fa-id-card"></i>
+          </div>
+          <h2>No Active Memberships</h2>
+          <p>You don't have any active membership plans. Start your fitness journey today!</p>
+          <div class="empty-actions">
+            <a href="{% url 'memberships:plan_list' %}" class="cta-button primary">
+              <i class="fas fa-search"></i>
+              Browse Membership Plans
+            </a>
+            <a href="{% url 'core:contact' %}" class="cta-button secondary">
+              <i class="fas fa-question-circle"></i>
+              Need Help Choosing?
+            </a>
+          </div>
+        </div>
+
+        <!-- Plan Recommendations -->
+        <div class="plan-recommendations">
+          <h3>Popular Plans You Might Like</h3>
+          <div class="recommendation-cards">
+            <div class="recommendation-card">
+              <h4>Basic Plan</h4>
+              <p class="price">$49<span>/month</span></p>
+              <ul class="features">
+                <li><i class="fas fa-check"></i> Gym Access</li>
+                <li><i class="fas fa-check"></i> Basic Equipment</li>
+                <li><i class="fas fa-check"></i> Locker Room</li>
+              </ul>
+              <a href="{% url 'memberships:plan_list' %}" class="recommendation-btn">Learn More</a>
+            </div>
+
+            <div class="recommendation-card featured">
+              <div class="popular-badge">Most Popular</div>
+              <h4>Premium Plan</h4>
+              <p class="price">$79<span>/month</span></p>
+              <ul class="features">
+                <li><i class="fas fa-check"></i> All Equipment</li>
+                <li><i class="fas fa-check"></i> Group Classes</li>
+                <li><i class="fas fa-check"></i> Personal Trainer</li>
+              </ul>
+              <a href="{% url 'memberships:plan_list' %}" class="recommendation-btn primary">View Plan</a>
+            </div>
+
+            <div class="recommendation-card">
+              <h4>Elite Plan</h4>
+              <p class="price">$129<span>/month</span></p>
+              <ul class="features">
+                <li><i class="fas fa-check"></i> 24/7 Access</li>
+                <li><i class="fas fa-check"></i> All Classes</li>
+                <li><i class="fas fa-check"></i> Nutrition Coaching</li>
+              </ul>
+              <a href="{% url 'memberships:plan_list' %}" class="recommendation-btn">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
   </div>
 </section>
+
+<style>
+  .memberships-section {
+    padding: 3rem 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    min-height: 80vh;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .page-subtitle {
+    font-size: 1.2rem;
+    color: #64748b;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .membership-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .membership-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+  }
+
+  .plan-info h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+  }
+
+  .plan-description {
+    color: #64748b;
+    margin: 0;
+  }
+
+  .status-badge {
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+  }
+
+  .status-badge.active {
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  .status-badge.inactive {
+    background: #fef2f2;
+    color: #dc2626;
+  }
+
+  .membership-details {
+    margin-bottom: 2rem;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .detail-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 12px;
+  }
+
+  .detail-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+  }
+
+  .detail-content label {
+    display: block;
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 0.25rem;
+  }
+
+  .detail-value {
+    font-weight: 600;
+    color: #1e293b;
+  }
+
+  .detail-value.renewing {
+    color: #166534;
+  }
+
+  .detail-value.not-renewing {
+    color: #dc2626;
+  }
+
+  .days-remaining {
+    color: #3b82f6;
+  }
+
+  .membership-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content:center;
+    align-items:center;
+    flex-wrap: wrap;
+  }
+
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .action-btn.primary {
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+    color: white;
+  }
+
+  .action-btn.secondary {
+    background: #e2e8f0;
+    color: #475569;
+  }
+
+  .action-btn.outline {
+    background: transparent;
+    color: #3b82f6;
+    border: 2px solid #3b82f6;
+  }
+
+  .action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .membership-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .stat-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .stat-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+  }
+
+  .stat-content h3 {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1e293b;
+  }
+
+  .upgrade-section {
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+    color: white;
+    padding: 3rem;
+    border-radius: 20px;
+    text-align: center;
+  }
+
+  .upgrade-content h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .upgrade-content p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+  }
+
+  .upgrade-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .upgrade-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .upgrade-btn.primary {
+    background: white;
+    color: #3b82f6;
+  }
+
+  .upgrade-btn.secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+
+  .upgrade-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  /* No Memberships State */
+  .no-memberships {
+    text-align: center;
+  }
+
+  .empty-state {
+    background: white;
+    padding: 4rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    margin-bottom: 3rem;
+  }
+
+  .empty-icon {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2.5rem;
+    margin: 0 auto 2rem;
+  }
+
+  .empty-state h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 1rem;
+  }
+
+  .empty-state p {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-bottom: 2rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .empty-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .cta-button.primary {
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+    color: white;
+  }
+
+  .cta-button.secondary {
+    background: transparent;
+    color: #3b82f6;
+    border: 2px solid #3b82f6;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .plan-recommendations {
+    text-align: center;
+  }
+
+  .plan-recommendations h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 2rem;
+  }
+
+  .recommendation-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .recommendation-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .recommendation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .recommendation-card.featured {
+    border: 2px solid #3b82f6;
+  }
+
+  .popular-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .recommendation-card h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 1rem;
+  }
+
+  .price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #3b82f6;
+    margin-bottom: 1.5rem;
+  }
+
+  .price span {
+    font-size: 1rem;
+    color: #64748b;
+  }
+
+  .features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+  }
+
+  .features li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: #64748b;
+  }
+
+  .features li i {
+    color: #10b981;
+  }
+
+  .recommendation-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    background: #f1f5f9;
+    color: #475569;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .recommendation-btn.primary {
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+    color: white;
+  }
+
+  .recommendation-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .memberships-section {
+      padding: 2rem 0;
+    }
+    
+    .page-header h1 {
+      font-size: 2rem;
+    }
+    
+    .membership-header {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .membership-actions {
+      flex-direction: column;
+    }
+    
+    .action-btn {
+      justify-content: center;
+    }
+    
+    .detail-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .upgrade-actions,
+    .empty-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .upgrade-btn,
+    .cta-button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
 {% endblock content %}

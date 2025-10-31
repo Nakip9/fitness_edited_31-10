@@ -22,7 +22,6 @@ INSTALLED_APPS = [
     "core",
     "accounts",
     "memberships",
-    "schedules",
     "payments",
 ]
 

@@ -2,18 +2,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from memberships.models import MembershipPlan
-from schedules.models import GymClass
 from .forms import ContactForm
 
 
 def home(request):
     plans = MembershipPlan.objects.filter(is_active=True).order_by("price")[:3]
-    classes = (
-        GymClass.objects.select_related("category")
-        .filter(is_published=True)
-        .order_by("start_time")[:6]
-    )
-    return render(request, "core/home.html", {"plans": plans, "classes": classes})
+    return render(request, "core/home.html", {"plans": plans,})
 
 
 def about(request):
