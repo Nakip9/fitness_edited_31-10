@@ -3,7 +3,7 @@
 {% block title %}{{ gym_class.title }} | {{ SITE_NAME }}{% endblock title %}
 
 {% block content %}
-<section class="py-5">
+<section class="content-section">
   <div class="container">
     <div class="row g-5">
       <div class="col-lg-7">
@@ -25,7 +25,12 @@
         </div>
       </div>
       <div class="col-lg-5">
-        <div class="card membership-card p-4">
+        <div class="photo-stack mb-3">
+          <div class="photo-frame photo-frame--accent" aria-hidden="true"></div>
+          <div class="photo-frame" aria-hidden="true"></div>
+        </div>
+        <p class="photo-note text-uppercase mb-3">Add instructor or class images</p>
+        <div class="membership-card p-4">
           <h3 class="fw-semibold mb-3">Reserve your spot</h3>
           {% if user.is_authenticated %}
             {% if booking %}
